@@ -1,47 +1,32 @@
 #include <iostream>
-#include "SistemaGerenciaFolha.h"
-#include "Funcionario.h"
+#include "Ginecologista.h"
+#include "Cirurgiao.h"
+#include "Otorrino.h"
+#include "Oftalmologista.h"
 
 using namespace std;
 
 int main(){
+    Medico *c1 = new Cirurgiao();
+    Medico *g1 = new Ginecologista();
+    Medico *ot1 = new Otorrino();
+    Medico *of1 = new Oftalmologista();
 
-    SistemaGerenciaFolha sgf = SistemaGerenciaFolha();
+    cout << c1->getEspecialidade() << ":\n";
+    c1->RealizarCirurgia();
+    cout << endl;
+    
+    cout << g1->getEspecialidade() << ":\n";
+    g1->RealizarCirurgia();
+    cout << endl;
+    
+    cout << ot1->getEspecialidade() << ":\n";
+    ot1->RealizarCirurgia();
+    cout << endl;
+    
+    cout << of1->getEspecialidade() << ":\n";
+    of1->RealizarCirurgia(); 
+    cout << endl;
 
-    Funcionario *assl = new Assalariado();
-    Funcionario *com = new Comissionado();
-    Funcionario *hor = new Horista();
-
-    assl->setNome("Francisco");
-    assl->setMatricula(1);
-    ((Assalariado *)assl)->setSalario(1200);
-
-    com->setNome("Maria");
-    com->setMatricula(2);
-    ((Comissionado *)com)->setSalarioBase(1000);
-    ((Comissionado *)com)->setVendasSemanais(500);
-    ((Comissionado *)com)->setPercentualComissao(20);
-
-    hor->setNome("Lucas");
-    hor->setMatricula(3);
-    ((Horista *)hor)->setSalarioPorHora(12);
-    ((Horista *)hor)->setHorasTrabalhadas(45);
-
-    sgf.setFuncionario(assl);
-    sgf.setFuncionario(com);
-    sgf.setFuncionario(hor);
-
-    cout << assl->toString();
-    cout << com->toString();
-    cout << hor->toString() << endl;
-
-    cout << "Total de pagamento na folha: " << sgf.calculaValorTotalFolha() << endl;
-    cout << "Salario mensal funcionario de matricula 2: " << sgf.consultaSalarioFuncionario(2) << endl;
-
-    try{
-        cout << "Salario mensal funcionario de matricula 4: " << sgf.consultaSalarioFuncionario(4) << endl;
-    }catch(FuncionarioNaoExisteException e){
-        cout << e.what() << endl;
-    }
     return 0;
 }
