@@ -1,32 +1,47 @@
 #include <iostream>
-#include "ContaEspecial.h"
+#include "SistemaGerenciaFolha.h"
+#include "Funcionario.h"
 
 using namespace std;
 
 int main(){
-    Conta *c1 = new Conta();
-    ContaEspecial *ce1 = new ContaEspecial();
 
-    c1->Depositar(3000);
-    ce1->Depositar(4000);
+    SistemaGerenciaFolha sgf = SistemaGerenciaFolha();
 
-    cout << "Saldo disponivel da conta num 1: " << c1->getSaldo() << endl;
-    cout << "Saldo disponivel da conta especial num1: " << ce1->getSaldo() << endl;
+    Funcionario *assl = new Assalariado();
+    Funcionario *com = new Comissionado();
+    Funcionario *hor = new Horista();
 
-    c1->Sacar(1500);
-    ce1->Sacar(2200);
+    assl->setNome("Francisco");
+    assl->setMatricula(1);
+    ((Assalariado *)assl)->setSalario(1200);
 
-    cout << "Saldo disponivel da conta num1 (pos saque): " << c1->getSaldo() << endl;
-    cout << "Saldo disponivel da conta especial num1 (pos saque): " << ce1->getSaldo() << endl;
+    com->setNome("Maria");
+    com->setMatricula(2);
+    ((Comissionado *)com)->setSalarioBase(1000);
+    ((Comissionado *)com)->setVendasSemanais(500);
+    ((Comissionado *)com)->setPercentualComissao(20);
 
-    c1->setSalarioMensal(3000);
-    c1->DefinirLimite();
+    hor->setNome("Lucas");
+    hor->setMatricula(3);
+    ((Horista *)hor)->setSalarioPorHora(12);
+    ((Horista *)hor)->setHorasTrabalhadas(45);
 
-    ce1->setSalarioMensal(3000);
-    ce1->DefinirLimite();
+    sgf.setFuncionario(assl);
+    sgf.setFuncionario(com);
+    sgf.setFuncionario(hor);
 
-    cout << "Limite da conta num1: " << c1->getLimite() << endl;
-    cout << "Limite da conta especial num1: " << ce1->getLimite() << endl;
+    cout << assl->toString();
+    cout << com->toString();
+    cout << hor->toString() << endl;
 
+    cout << "Total de pagamento na folha: " << sgf.calculaValorTotalFolha() << endl;
+    cout << "Salario mensal funcionario de matricula 2: " << sgf.consultaSalarioFuncionario(2) << endl;
+
+    try{
+        cout << "Salario mensal funcionario de matricula 4: " << sgf.consultaSalarioFuncionario(4) << endl;
+    }catch(FuncionarioNaoExisteException e){
+        cout << e.what() << endl;
+    }
     return 0;
 }
