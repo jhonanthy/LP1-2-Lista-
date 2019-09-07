@@ -36,6 +36,6 @@ double MesaDeRestaurante::CalculaTotal(){
     for(int i = 0; i < MAX_PEDIDOS; i++){
         soma += pedidos[i].getPreco() * pedidos[i].getQPedido();
     }
-
+//
     return soma;
 }
