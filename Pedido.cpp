@@ -36,7 +36,7 @@ void Pedido::setNumPedido(int numPedido){
         this->numPedido = numPedido;
     else
         this->numPedido = 0;
-}
+}//
 
 void Pedido::setQPedido(int qPedido){
     if(qPedido > 0)
