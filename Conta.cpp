@@ -67,7 +67,7 @@ void Conta::Sacar(double valor){
     if(saldo >= valor){
         saldo -= valor;
     }else{
-        cout << "Saldo insuficiente!" << endl;
+        throw SaldoNaoDisponivelException();
     }
     //exception
 }
